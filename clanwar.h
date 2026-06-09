@@ -3,21 +3,37 @@
 
 #include "battlefield.h"
 
-int isLegalRaid(Battlefield *arena,
+int insideMap(int row, int col);
+
+int isRedPiece(char piece);
+int isBlackPiece(char piece);
+int isKing(char piece);
+
+int canCapture(Battlefield *arena,
+               int row,
+               int col);
+
+int playerHasCapture(Battlefield *arena,
+                     char troop);
+
+int isLegalMove(Battlefield *arena,
                 int fromRow,
                 int fromCol,
                 int toRow,
                 int toCol,
                 char troop);
 
-void launchRaid(Battlefield *arena,
-                int fromRow,
-                int fromCol,
-                int toRow,
-                int toCol);
+int makeMove(Battlefield *arena,
+             int fromRow,
+             int fromCol,
+             int toRow,
+             int toCol);
 
 void promoteHeroes(Battlefield *arena);
 
-int checkClanDestroyed(Battlefield *arena);
+int playerHasMoves(Battlefield *arena,
+                   char troop);
+
+int checkWinner(Battlefield *arena);
 
 #endif

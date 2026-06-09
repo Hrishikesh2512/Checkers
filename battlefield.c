@@ -3,32 +3,32 @@
 
 void prepareWar(Battlefield *arena)
 {
-    for(int lane=0; lane<WAR_MAP; lane++)
+    for (int row = 0; row < WAR_MAP; row++)
     {
-        for(int tile=0; tile<WAR_MAP; tile++)
+        for (int col = 0; col < WAR_MAP; col++)
         {
-            arena->troops[lane][tile] = '.';
+            arena->troops[row][col] = '.';
         }
     }
 
-    for(int lane=0; lane<3; lane++)
+    for (int row = 0; row < 3; row++)
     {
-        for(int tile=0; tile<WAR_MAP; tile++)
+        for (int col = 0; col < WAR_MAP; col++)
         {
-            if((lane + tile) % 2)
+            if ((row + col) % 2 == 1)
             {
-                arena->troops[lane][tile] = 'b';
+                arena->troops[row][col] = 'b';
             }
         }
     }
 
-    for(int lane=5; lane<WAR_MAP; lane++)
+    for (int row = 5; row < WAR_MAP; row++)
     {
-        for(int tile=0; tile<WAR_MAP; tile++)
+        for (int col = 0; col < WAR_MAP; col++)
         {
-            if((lane + tile) % 2)
+            if ((row + col) % 2 == 1)
             {
-                arena->troops[lane][tile] = 'r';
+                arena->troops[row][col] = 'r';
             }
         }
     }
@@ -36,24 +36,27 @@ void prepareWar(Battlefield *arena)
 
 void showWar(Battlefield *arena)
 {
-    printf("\n   ");
+    printf("\n");
 
-    for(int tile=0; tile<WAR_MAP; tile++)
+    printf("   ");
+    for (int col = 0; col < WAR_MAP; col++)
     {
-        printf("%d ", tile);
+        printf("%d ", col);
     }
 
     printf("\n");
 
-    for(int lane=0; lane<WAR_MAP; lane++)
+    for (int row = 0; row < WAR_MAP; row++)
     {
-        printf("%d  ", lane);
+        printf("%d  ", row);
 
-        for(int tile=0; tile<WAR_MAP; tile++)
+        for (int col = 0; col < WAR_MAP; col++)
         {
-            printf("%c ", arena->troops[lane][tile]);
+            printf("%c ", arena->troops[row][col]);
         }
 
         printf("\n");
     }
+
+    printf("\n");
 }

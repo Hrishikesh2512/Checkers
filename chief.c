@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "battlefield.h"
 #include "clanwar.h"
 #include "warrior.h"
@@ -12,69 +13,130 @@ int main()
 
     prepareWar(&arena);
 
-    printf("Red Clan Chief: ");
+    printf("Enter Red Player Name: ");
     scanf("%49s", redChief.playerName);
 
-    printf("Black Clan Chief: ");
+    printf("Enter Black Player Name: ");
     scanf("%49s", blackChief.playerName);
 
     redChief.troopType = 'r';
     blackChief.troopType = 'b';
 
-    int warRound = 0;
+    int turn = 0;
 
-    while(1)
+    while (1)
     {
         showWar(&arena);
 
-        Warrior currentChief =
-            (warRound % 2 == 0)
+        Warrior currentPlayer =
+            (turn % 2 == 0)
             ? redChief
             : blackChief;
 
         int fromRow, fromCol;
         int toRow, toCol;
 
-        printf("%s's turn\n",
-               currentChief.playerName);
+        printf("\n%s's Turn (%c)\n",
+               currentPlayer.playerName,
+               currentPlayer.troopType);
 
-        scanf("%d%d",
+        printf("From Row Col: ");
+        scanf("%d %d",
               &fromRow,
               &fromCol);
 
-        scanf("%d%d",
+        printf("To Row Col: ");
+        scanf("%d %d",
               &toRow,
               &toCol);
 
-        if(!isLegalRaid(&arena,
-                        fromRow,
-                        fromCol,
-                        toRow,
-                        toCol,
-                        currentChief.troopType))
+        int result =
+            makeMove(&arena,
+                     fromRow,
+                     fromCol,
+                     toRow,
+                     toCol);
+
+        if (result == 0)
         {
-            printf("Raid Failed!\n");
+            printf("Invalid Move!\n");
             continue;
         }
 
-        launchRaid(&arena,
-                   fromRow,
-                   fromCol,
-                   toRow,
-                   toCol);
-
         promoteHeroes(&arena);
 
-        int result =
-            checkClanDestroyed(&arena);
-
-        if(result)
+        if (result == 2)
         {
-            printf("Clan War Finished!\n");
+            int currentRow = toRow;
+            int currentCol = toCol;
+
+            while (canCapture(&arena,
+                              currentRow,
+                              currentCol))
+            {
+                showWar(&arena);
+
+                printf("\nAdditional Capture Available!\n");
+
+                printf("Continue From %d %d\n",
+                       currentRow,
+                       currentCol);
+
+                printf("Next Row Col: ");
+
+                int nextRow;
+                int nextCol;
+
+                scanf("%d %d",
+                      &nextRow,
+                      &nextCol);
+
+                int chainResult =
+                    makeMove(&arena,
+                             currentRow,
+                             currentCol,
+                             nextRow,
+                             nextCol);
+
+                if (chainResult != 2)
+                {
+                    printf("You must capture!\n");
+                    continue;
+                }
+
+                currentRow = nextRow;
+                currentCol = nextCol;
+
+                promoteHeroes(&arena);
+            }
+        }
+
+        int winner =
+            checkWinner(&arena);
+
+        if (winner == 1)
+        {
+            showWar(&arena);
+
+            printf("\n");
+            printf("%s Wins!\n",
+                   redChief.playerName);
+
             break;
         }
 
-        warRound++;
+        if (winner == 2)
+        {
+            showWar(&arena);
+
+            printf("\n");
+            printf("%s Wins!\n",
+                   blackChief.playerName);
+
+            break;
+        }
+
+        turn++;
     }
 
     return 0;
