@@ -1,7 +1,12 @@
 #ifndef CLANWAR_H
 #define CLANWAR_H
 
-#include "battlefield.h"
+#include "../engine/battlefield.h"
+void showStats(Battlefield *arena);
+
+void showStats(Battlefield *arena);
+
+void showStats(Battlefield *arena);
 
 int insideMap(int row, int col);
 

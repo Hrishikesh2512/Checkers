@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "battlefield.h"
+#include "../engine/battlefield.h"
 
 void prepareWar(Battlefield *arena)
 {
@@ -38,25 +38,20 @@ void showWar(Battlefield *arena)
 {
     printf("\n");
 
-    printf("   ");
-    for (int col = 0; col < WAR_MAP; col++)
-    {
-        printf("%d ", col);
-    }
-
-    printf("\n");
+    printf("      0 1 2 3 4 5 6 7\n");
+    printf("    +----------------+\n");
 
     for (int row = 0; row < WAR_MAP; row++)
     {
-        printf("%d  ", row);
+        printf(" %d  | ", row);
 
         for (int col = 0; col < WAR_MAP; col++)
         {
             printf("%c ", arena->troops[row][col]);
         }
 
-        printf("\n");
+        printf("|\n");
     }
 
-    printf("\n");
+    printf("    +----------------+\n\n");
 }

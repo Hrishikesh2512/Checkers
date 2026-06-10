@@ -1,16 +1,1 @@
-# Clan Dominion
-
-A Clash-inspired Checkers game built in C using Raylib.
-
-## Features
-
-- Checkers gameplay
-- Piece captures
-- King promotion
-- Mouse controls
-- Raylib GUI
-
-## Build
-
-```powershell
 gcc gui\main.c gui\renderer.c gui\input.c engine\battlefield.c engine\clanwar.c engine\warrior.c -IC:\raylib\raylib-5.0_win64_mingw-w64\include -LC:\raylib\raylib-5.0_win64_mingw-w64\lib -lraylib -lopengl32 -lgdi32 -lwinmm -o ClanDominion.exe

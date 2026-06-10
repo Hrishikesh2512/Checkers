@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "clanwar.h"
 
 int insideMap(int row, int col)
@@ -369,4 +370,48 @@ int checkWinner(Battlefield *arena)
     }
 
     return 0;
+}
+void showStats(Battlefield *arena)
+{
+    int redPieces = 0;
+    int blackPieces = 0;
+    int redKings = 0;
+    int blackKings = 0;
+
+    for (int row = 0; row < WAR_MAP; row++)
+    {
+        for (int col = 0; col < WAR_MAP; col++)
+        {
+            char piece = arena->troops[row][col];
+
+            if (piece == 'r')
+            {
+                redPieces++;
+            }
+            else if (piece == 'R')
+            {
+                redKings++;
+            }
+            else if (piece == 'b')
+            {
+                blackPieces++;
+            }
+            else if (piece == 'B')
+            {
+                blackKings++;
+            }
+        }
+    }
+
+    printf("\n");
+    printf("====================================\n");
+    printf("Red   : %d Pieces | %d Kings\n",
+           redPieces,
+           redKings);
+
+    printf("Black : %d Pieces | %d Kings\n",
+           blackPieces,
+           blackKings);
+
+    printf("====================================\n");
 }
